@@ -1,6 +1,7 @@
 using api.Data;
 using api.Interfaces;
 using api.Repository;
+using api.Services;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Configure SQL Server
+// SQL Server
 var connectionString = Env.GetString("DB_CONNECTION_STRING");
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(connectionString));
@@ -48,6 +49,7 @@ builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 var app = builder.Build();
 
