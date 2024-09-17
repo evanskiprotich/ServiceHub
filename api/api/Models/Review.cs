@@ -1,7 +1,10 @@
-﻿namespace api.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace api.Models
 {
     public class Review
     {
+        [Key]
         public int ReviewID { get; set; }
         public int ClientID { get; set; }
         public int ServiceID { get; set; }

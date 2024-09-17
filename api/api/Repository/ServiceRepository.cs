@@ -56,7 +56,7 @@ namespace api.Repository
         public async Task<List<ServiceDto>> GetNearbyServices(double userLat, double userLon)
         {
             var vendors = await _context.Users
-                .Where(u => u.Role == "Vendor")
+                .Where(u => u.RoleID == 3)
                 .ToListAsync();
 
             // Calculate distances for each vendor based on user location and return vendors within 10 km radius

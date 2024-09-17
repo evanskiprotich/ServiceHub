@@ -53,7 +53,7 @@ namespace api.Controllers
         {
             try
             {
-                var response = await _paymentService.InitiatePaymentAsync(amount, phoneNumber);
+                var response = await _paymentService.SendMoneyB2CAsync(amount, phoneNumber);
                 return Ok(response);
             }
             catch (Exception ex)

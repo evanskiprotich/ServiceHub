@@ -2,6 +2,6 @@
 {
     public interface IPaymentService
     {
-        Task<string> InitiatePaymentAsync(decimal amount, string phoneNumber);
+        Task<string> SendMoneyB2CAsync(decimal amount, string phoneNumber);
     }
 }

@@ -1,7 +1,10 @@
-﻿namespace api.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace api.Models
 {
     public class ServiceRequest
     {
+        [Key]
         public int RequestID { get; set; }
         public int ClientID { get; set; }
         public int VendorID { get; set; }

@@ -1,27 +1,44 @@
-﻿namespace api.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace api.Models
 {
     public class User
     {
+        [Key]
         public int UserID { get; set; }
+
+        [Required]
         public string UserName { get; set; }
+
+        [Required]
         public string Password { get; set; }
+
+        [Required]
         public string Email { get; set; }
+
+        [Required]
         public string PhoneNumber { get; set; }
-        public string Role { get; set; } // Admin, Vendor, Client
+
+        [Required]
         public string Location { get; set; }
-        public double? Latitude { get; set; } 
+
+        public double? Latitude { get; set; }
         public double? Longitude { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? LastLogin { get; set; }
 
-        // Navigation Properties
-        public ICollection<Service> Services { get; set; }  // Vendor's Services
-        public ICollection<ServiceRequest> ClientServiceRequests { get; set; } // Client's Requests
-        public ICollection<ServiceRequest> VendorServiceRequests { get; set; } // Vendor's Received Requests
-        public ICollection<Payment> ClientPayments { get; set; } // Payments made by Client
-        public ICollection<Payment> VendorPayments { get; set; } // Payments received by Vendor
-        public ICollection<Review> Reviews { get; set; } // Reviews by Client
-        public ICollection<ChatMessage> SentMessages { get; set; } // Sent Messages
-        public ICollection<ChatMessage> ReceivedMessages { get; set; } // Received Messages
+        // Foreign key for Role
+        public int RoleID { get; set; }
+        public Role Role { get; set; } // Navigation property
+
+        // Other navigation properties
+        public ICollection<Service> Services { get; set; }
+        public ICollection<ServiceRequest> ClientServiceRequests { get; set; }
+        public ICollection<ServiceRequest> VendorServiceRequests { get; set; }
+        public ICollection<Payment> ClientPayments { get; set; }
+        public ICollection<Payment> VendorPayments { get; set; }
+        public ICollection<Review> Reviews { get; set; }
+        public ICollection<ChatMessage> SentMessages { get; set; }
+        public ICollection<ChatMessage> ReceivedMessages { get; set; }
     }
 }

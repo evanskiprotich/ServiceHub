@@ -86,7 +86,7 @@ namespace api.Controllers
             user.UserName = userDto.UserName;
             user.Email = userDto.Email;
             user.PhoneNumber = userDto.PhoneNumber;
-            user.Role = userDto.Role;
+            //user.Role = userDto.Role;
 
             await _userRepository.UpdateUserAsync(user);
             return NoContent();

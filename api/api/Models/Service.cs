@@ -1,13 +1,17 @@
-﻿namespace api.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace api.Models
 {
     public class Service
     {
+        [Key]
         public int ServiceID { get; set; }
         public int VendorID { get; set; }
         public string ServiceName { get; set; }
         public string ServiceDescription { get; set; }
         public decimal Cost { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string IsAvailable { get; set; }
 
         // Navigation Properties
         public User Vendor { get; set; } 

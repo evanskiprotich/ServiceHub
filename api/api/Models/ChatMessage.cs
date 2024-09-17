@@ -1,7 +1,10 @@
-﻿namespace api.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace api.Models
 {
     public class ChatMessage
     {
+        [Key]
         public int MessageID { get; set; }
         public int RequestID { get; set; }
         public int SenderID { get; set; }

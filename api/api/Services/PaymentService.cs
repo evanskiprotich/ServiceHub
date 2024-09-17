@@ -10,11 +10,10 @@ namespace api.Services
         private readonly HttpClient _httpClient;
         private readonly string _mpesaConsumerKey;
         private readonly string _mpesaConsumerSecret;
-        private readonly string _lipaNaMpesaShortcode;
-        private readonly string _lipaNaMpesaPasskey;
-        private readonly string _lipaNaMpesaPasssecret;
-        private readonly string _lipaNaMpesaCallbackUrl;
-        private readonly string _lipaNaMpesaAccountNumber;
+        private readonly string _b2cShortcode;
+        private readonly string _initiatorName;
+        private readonly string _b2cPasssecret;
+        private readonly string _b2cCallbackUrl;
 
         public PaymentService()
         {
@@ -23,32 +22,28 @@ namespace api.Services
 
             _mpesaConsumerKey = Env.GetString("MPESA_CONSUMER_KEY");
             _mpesaConsumerSecret = Env.GetString("MPESA_CONSUMER_SECRET");
-            _lipaNaMpesaShortcode = Env.GetString("MPESA_LIPA_NA_MPESA_SHORTCODE");
-            _lipaNaMpesaPasskey = Env.GetString("MPESA_LIPA_NA_MPESA_SHORTCODE_PASSKEY");
-            _lipaNaMpesaPasssecret = Env.GetString("MPESA_LIPA_NA_MPESA_SHORTCODE_PASSSECRET");
-            _lipaNaMpesaCallbackUrl = Env.GetString("MPESA_LIPA_NA_MPESA_SHORTCODE_CALLBACK_URL");
-            _lipaNaMpesaAccountNumber = Env.GetString("MPESA_LIPA_NA_MPESA_SHORTCODE_ACCOUNT_NUMBER");
+            _b2cShortcode = Env.GetString("MPESA_B2C_SHORTCODE");
+            _initiatorName = Env.GetString("MPESA_INITIATOR_NAME");
+            _b2cPasssecret = Env.GetString("MPESA_B2C_PASSSECRET");
+            _b2cCallbackUrl = Env.GetString("MPESA_B2C_CALLBACK_URL");
         }
 
-        public async Task<string> InitiatePaymentAsync(decimal amount, string phoneNumber)
+        public async Task<string> SendMoneyB2CAsync(decimal amount, string phoneNumber)
         {
             var token = await GetMpesaTokenAsync();
-            var url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
+            var url = "https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest";
             var request = new
             {
-                BusinessShortCode = _lipaNaMpesaShortcode,
-                Password = GeneratePassword(),
-                Timestamp = DateTime.Now.ToString("yyyyMMddHHmmss"),
-                TransactionType = "CustomerPayBillOnline",
+                InitiatorName = _initiatorName,
+                SecurityCredential = _b2cPasssecret,
+                CommandID = "BusinessPayment",  // Use "SalaryPayment" or "PromotionPayment" as needed
                 Amount = amount,
-                PartyA = phoneNumber,
-                PartyB = _lipaNaMpesaShortcode,
-                PhoneNumber = phoneNumber,
-                CallBackURL = _lipaNaMpesaCallbackUrl,
-                AccountNumber = _lipaNaMpesaAccountNumber,
-                // Optional parameters
-                // Description = "Payment for service",
-                // Remark = "Payment"
+                PartyA = _b2cShortcode,  // Shortcode sending money
+                PartyB = phoneNumber,  // Phone number receiving money
+                Remarks = "Payment for service",  // Any remark
+                QueueTimeOutURL = _b2cCallbackUrl,  // Timeout callback
+                ResultURL = _b2cCallbackUrl,  // Success callback
+                Occasion = "Payment"  // Optional field
             };
 
             var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
@@ -70,13 +65,6 @@ namespace api.Services
             dynamic data = JsonConvert.DeserializeObject(jsonResponse);
 
             return data.access_token;
-        }
-
-        private string GeneratePassword()
-        {
-            var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
-            var password = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{_lipaNaMpesaShortcode}{_lipaNaMpesaPasskey}{timestamp}"));
-            return password;
         }
     }
 }

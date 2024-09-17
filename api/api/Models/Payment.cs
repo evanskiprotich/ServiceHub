@@ -1,7 +1,10 @@
-﻿namespace api.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace api.Models
 {
     public class Payment
     {
+        [Key]
         public int PaymentID { get; set; }
         public int RequestID { get; set; }
         public int ClientID { get; set; }

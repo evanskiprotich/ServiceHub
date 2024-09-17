@@ -24,7 +24,6 @@ namespace api.Repository
             _config = config;
         }
 
-        // Method to register a new user
         public async Task<UserDto> Register(UserCreateDto userCreateDto)
         {
             // Check if user with the same email already exists
@@ -36,24 +35,29 @@ namespace api.Repository
             // Hash the password
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(userCreateDto.Password);
 
-            // Create user object
-            var user = new User
+            // Call the stored procedure to register the user
+            await _context.Database.ExecuteSqlRawAsync("EXEC RegisterUser @p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7",
+                parameters: new object[] {
+            userCreateDto.UserName,
+            hashedPassword,
+            userCreateDto.Email,
+            userCreateDto.PhoneNumber,
+            userCreateDto.RoleID,  
+            userCreateDto.Location,
+            userCreateDto.Latitude,
+            userCreateDto.Longitude,
+            DateTime.Now
+                });
+
+            // Fetch the newly created user from the database
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == userCreateDto.Email);
+
+            if (user == null)
             {
-                UserName = userCreateDto.UserName,
-                Email = userCreateDto.Email,
-                Password = hashedPassword,
-                PhoneNumber = userCreateDto.PhoneNumber,
-                Role = userCreateDto.Role,
-                Latitude = userCreateDto.Latitude,
-                Longitude = userCreateDto.Longitude,
-                CreatedAt = DateTime.Now
-            };
+                throw new Exception("User registration failed.");
+            }
 
-            // Save the user to the database
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            // Map to UserDto and return
+            // Map the user entity to UserDto and return it
             return _mapper.Map<UserDto>(user);
         }
 
@@ -73,20 +77,26 @@ namespace api.Repository
             await _context.SaveChangesAsync();
 
             // Generate JWT Token
-            return GenerateJwtToken(user);
+            return await GenerateJwtToken(user);
         }
 
-        // Method to generate JWT Token
-        private string GenerateJwtToken(User user)
+        private async Task<string> GenerateJwtToken(User user)
         {
+            // Fetch the role name from the database using RoleID
+            var role = await _context.Roles.FirstOrDefaultAsync(r => r.Id == user.RoleID);
+            if (role == null)
+            {
+                throw new Exception("Role not found.");
+            }
+
             var claims = new[]
             {
-            new Claim(JwtRegisteredClaimNames.Sub, user.UserID.ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim(ClaimTypes.Role, user.Role),
-            new Claim("Latitude", user.Latitude.ToString()),
-            new Claim("Longitude", user.Longitude.ToString())
-        };
+        new Claim(JwtRegisteredClaimNames.Sub, user.UserID.ToString()),
+        new Claim(JwtRegisteredClaimNames.Email, user.Email),
+        new Claim(ClaimTypes.Role, role.Name),  // Fetch the role name using RoleID
+        new Claim("Latitude", user.Latitude?.ToString() ?? string.Empty),
+        new Claim("Longitude", user.Longitude?.ToString() ?? string.Empty)
+    };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -100,6 +110,7 @@ namespace api.Repository
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
 
         public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
