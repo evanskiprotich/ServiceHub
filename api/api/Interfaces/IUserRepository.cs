@@ -13,5 +13,6 @@ namespace api.Interfaces
         Task<User> GetUserByEmailAsync(string email);
         Task<UserDto> Register(UserCreateDto userCreateDto);
         Task<string> Login(LoginDTO userLoginDto);
+        //Task<UserDto> Login(LoginDTO userLoginDto);
     }
 }

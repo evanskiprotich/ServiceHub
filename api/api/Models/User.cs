@@ -29,9 +29,8 @@ namespace api.Models
 
         // Foreign key for Role
         public int RoleID { get; set; }
+        public string RoleName { get; set; }
         public Role Role { get; set; } // Navigation property
-
-        // Other navigation properties
         public ICollection<Service> Services { get; set; }
         public ICollection<ServiceRequest> ClientServiceRequests { get; set; }
         public ICollection<ServiceRequest> VendorServiceRequests { get; set; }
@@ -40,5 +39,8 @@ namespace api.Models
         public ICollection<Review> Reviews { get; set; }
         public ICollection<ChatMessage> SentMessages { get; set; }
         public ICollection<ChatMessage> ReceivedMessages { get; set; }
+        public ICollection<Dispute> DisputesAsClient { get; set; }
+        public ICollection<Dispute> DisputesAsVendor { get; set; }
+        public ICollection<Withdrawal> Withdrawals { get; set; }
     }
 }

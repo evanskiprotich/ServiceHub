@@ -1,4 +1,5 @@
 ﻿using api.Data;
+using api.Dtos.Service;
 using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -34,28 +35,39 @@ namespace api.Repository
                 .ToListAsync();
         }
 
-        public async Task<Service> AddService(int vendorId, Service service)
+        public async Task<ServiceCreateDto> AddService(int vendorId, ServiceCreateDto serviceDto)
         {
-            service.VendorID = vendorId;
+            var service = new Service
+            {
+                VendorID = vendorId,
+                ServiceName = serviceDto.ServiceName,
+                ServiceDescription = serviceDto.ServiceDescription,
+                Cost = serviceDto.Cost,
+                CreatedAt = DateTime.UtcNow,
+                IsAvailable = serviceDto.IsAvailable
+            };
+
             _context.Services.Add(service);
             await _context.SaveChangesAsync();
-            return service;
+
+            return serviceDto;
         }
 
-        public async Task<Service> UpdateService(int vendorId, int serviceId, Service service)
+        public async Task<ServiceUpdateDto> UpdateService(int vendorId, int serviceId, ServiceUpdateDto serviceDto)
         {
             var existingService = await _context.Services
                 .FirstOrDefaultAsync(s => s.VendorID == vendorId && s.ServiceID == serviceId);
 
             if (existingService == null) return null;
 
-            existingService.ServiceName = service.ServiceName;
-            existingService.ServiceDescription = service.ServiceDescription;
-            existingService.Cost = service.Cost;
-            existingService.IsAvailable = service.IsAvailable;
+            existingService.ServiceName = serviceDto.ServiceName;
+            existingService.ServiceDescription = serviceDto.ServiceDescription;
+            existingService.Cost = serviceDto.Cost;
+            existingService.IsAvailable = serviceDto.IsAvailable;
 
             await _context.SaveChangesAsync();
-            return existingService;
+
+            return serviceDto;
         }
 
         public async Task<bool> RemoveService(int vendorId, int serviceId)
@@ -151,5 +163,46 @@ namespace api.Repository
                 .OrderByDescending(n => n.SentAt)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Dispute>> GetVendorDisputes(int vendorId)
+        {
+            return await _context.Disputes
+                .Where(d => d.VendorID == vendorId)
+                .ToListAsync();
+        }
+
+        public async Task<Withdrawal> RequestWithdrawal(int vendorId, Withdrawal withdrawal)
+        {
+            withdrawal.VendorID = vendorId;
+            withdrawal.Status = "Pending";
+            withdrawal.WithdrawalDate = DateTime.UtcNow;
+
+            _context.Withdrawals.Add(withdrawal);
+            await _context.SaveChangesAsync();
+            return withdrawal;
+        }
+
+        public async Task<IEnumerable<Withdrawal>> GetWithdrawals(int vendorId)
+        {
+            return await _context.Withdrawals
+                .Where(w => w.VendorID == vendorId)
+                .ToListAsync();
+        }
+
+        public async Task<bool> ResolveDispute(int vendorId, int disputeId, string resolution)
+        {
+            var dispute = await _context.Disputes
+                .FirstOrDefaultAsync(d => d.DisputeID == disputeId && d.VendorID == vendorId);
+
+            if (dispute == null || dispute.Status != "Pending") return false;
+
+            dispute.Status = "Resolved";
+            dispute.Resolution = resolution;
+            dispute.ResolvedAt = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
     }
 }

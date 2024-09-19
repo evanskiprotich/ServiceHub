@@ -25,5 +25,8 @@ namespace api.Interfaces
 
         Task<User> UpdateClientProfile(int clientId, User user);
         Task<IEnumerable<Notification>> GetClientNotifications(int clientId);
+
+        Task<Dispute> RaiseDispute(int clientId, int vendorId, int requestId, Dispute dispute);
+        Task<IEnumerable<Dispute>> GetClientDisputes(int clientId);
     }
 }

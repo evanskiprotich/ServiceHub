@@ -138,5 +138,25 @@ namespace api.Repository
                 .OrderByDescending(n => n.SentAt)
                 .ToListAsync();
         }
+
+        public async Task<Dispute> RaiseDispute(int clientId, int vendorId, int requestId, Dispute dispute)
+        {
+            dispute.ClientID = clientId;
+            dispute.VendorID = vendorId;
+            dispute.RequestID = requestId;
+            dispute.Status = "Pending";
+            dispute.CreatedAt = DateTime.UtcNow;
+
+            _context.Disputes.Add(dispute);
+            await _context.SaveChangesAsync();
+            return dispute;
+        }
+
+        public async Task<IEnumerable<Dispute>> GetClientDisputes(int clientId)
+        {
+            return await _context.Disputes
+                .Where(d => d.ClientID == clientId)
+                .ToListAsync();
+        }
     }
 }

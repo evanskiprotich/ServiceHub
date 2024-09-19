@@ -19,36 +19,6 @@ namespace api.Controllers
             _userRepository = userRepository;
         }
 
-        // Register a new user
-        [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Register(UserCreateDto userCreateDto)
-        {
-            try
-            {
-                var user = await _userRepository.Register(userCreateDto);
-                return Ok(user);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-        }
-
-        // Login to generate JWT
-        [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(LoginDTO loginDto)
-        {
-            try
-            {
-                var token = await _userRepository.Login(loginDto);
-                return Ok(new { token });
-            }
-            catch (Exception ex)
-            {
-                return Unauthorized(new { message = ex.Message });
-            }
-        }
-
         // Get all users (Admin only)
         [HttpGet]
         [Authorize(Roles = "Admin")]

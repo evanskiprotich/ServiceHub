@@ -43,5 +43,24 @@ namespace api.Controllers
                 return Unauthorized(new { message = ex.Message });
             }
         }
+
+        //[HttpPost("login")]
+        //public async Task<IActionResult> Login([FromBody] LoginDTO userLoginDto)
+        //{
+        //    try
+        //    {
+        //        // Call the Login method in the repository to get the user details
+        //        var user = await _userRepository.Login(userLoginDto);
+
+        //        // Return the user details
+        //        return Ok(user);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Return an Unauthorized status with the error message
+        //        return Unauthorized(new { message = ex.Message });
+        //    }
+        //}
+
     }
 }

@@ -2,9 +2,17 @@
 {
     public class ServiceCreateDto
     {
-        public int VendorID { get; set; }
         public string ServiceName { get; set; }
         public string ServiceDescription { get; set; }
         public decimal Cost { get; set; }
+        public string IsAvailable { get; set; }
+    }
+
+    public class ServiceUpdateDto
+    {
+        public string ServiceName { get; set; }
+        public string ServiceDescription { get; set; }
+        public decimal Cost { get; set; }
+        public string IsAvailable { get; set; }
     }
 }

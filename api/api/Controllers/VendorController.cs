@@ -1,4 +1,5 @@
-﻿using api.Models;
+﻿using api.Dtos.Service;
+using api.Models;
 using api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -43,16 +44,16 @@ namespace api.Controllers
         }
 
         [HttpPost("add-service")]
-        public async Task<IActionResult> AddService(int vendorId, [FromBody] Service service)
+        public async Task<IActionResult> AddService(int vendorId, [FromBody] ServiceCreateDto serviceDto)
         {
-            var newService = await _vendorService.AddService(vendorId, service);
+            var newService = await _vendorService.AddService(vendorId, serviceDto);
             return Ok(newService);
         }
 
         [HttpPut("update-service/{serviceId}")]
-        public async Task<IActionResult> UpdateService(int vendorId, int serviceId, [FromBody] Service service)
+        public async Task<IActionResult> UpdateService(int vendorId, int serviceId, [FromBody] ServiceUpdateDto serviceDto)
         {
-            var updatedService = await _vendorService.UpdateService(vendorId, serviceId, service);
+            var updatedService = await _vendorService.UpdateService(vendorId, serviceId, serviceDto);
             return Ok(updatedService);
         }
 

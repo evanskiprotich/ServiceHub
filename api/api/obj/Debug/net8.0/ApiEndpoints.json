@@ -553,58 +553,6 @@
     ]
   },
   {
-    "ContainingType": "api.Controllers.UserController",
-    "Method": "Login",
-    "RelativePath": "api/User/login",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "loginDto",
-        "Type": "api.Dtos.User.LoginDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.String",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "api.Controllers.UserController",
-    "Method": "Register",
-    "RelativePath": "api/User/register",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userCreateDto",
-        "Type": "api.Dtos.User.UserCreateDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "api.Dtos.User.UserDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
     "ContainingType": "api.Controllers.AuthenticationController",
     "Method": "Login",
     "RelativePath": "api/v1/Authentication/login",
@@ -1177,8 +1125,8 @@
         "IsRequired": false
       },
       {
-        "Name": "service",
-        "Type": "api.Models.Service",
+        "Name": "serviceDto",
+        "Type": "api.Dtos.Service.ServiceCreateDto",
         "IsRequired": true
       }
     ],
@@ -1398,8 +1346,8 @@
         "IsRequired": true
       },
       {
-        "Name": "service",
-        "Type": "api.Models.Service",
+        "Name": "serviceDto",
+        "Type": "api.Dtos.Service.ServiceUpdateDto",
         "IsRequired": true
       }
     ],

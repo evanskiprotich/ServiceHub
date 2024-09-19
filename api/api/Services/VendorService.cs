@@ -1,4 +1,5 @@
-﻿using api.Interfaces;
+﻿using api.Dtos.Service;
+using api.Interfaces;
 using api.Models;
 
 namespace api.Services
@@ -27,14 +28,14 @@ namespace api.Services
             return _vendorRepository.GetVendorServices(vendorId);
         }
 
-        public Task<Service> AddService(int vendorId, Service service)
+        public Task<ServiceCreateDto> AddService(int vendorId, ServiceCreateDto serviceDto)
         {
-            return _vendorRepository.AddService(vendorId, service);
+            return _vendorRepository.AddService(vendorId, serviceDto);
         }
 
-        public Task<Service> UpdateService(int vendorId, int serviceId, Service service)
+        public Task<ServiceUpdateDto> UpdateService(int vendorId, int serviceId, ServiceUpdateDto serviceDto)
         {
-            return _vendorRepository.UpdateService(vendorId, serviceId, service);
+            return _vendorRepository.UpdateService(vendorId, serviceId, serviceDto);
         }
 
         public Task<bool> RemoveService(int vendorId, int serviceId)

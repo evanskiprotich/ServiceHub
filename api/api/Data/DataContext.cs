@@ -2,6 +2,7 @@
 using api.ViewModels;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace api.Data
 {
@@ -16,6 +17,8 @@ namespace api.Data
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRoles> UserRoles { get; set; }
+        public DbSet<Dispute> Disputes { get; set; }
+    public DbSet<Withdrawal> Withdrawals { get; set; }
         public virtual DbSet<ChatInteractionViewModel> ChatInteractionViews { get; set; }
         public virtual DbSet<ClientActivityReportViewModel> ClientActivityReports { get; set; }
         public virtual DbSet<ClientSatisfactionReportViewModel> ClientSatisfactionReports { get; set; }
@@ -97,8 +100,8 @@ namespace api.Data
             // Role Entity Configuration
             builder.Entity<Role>(entity =>
             {
-                entity.HasKey(r => r.Id);
-                entity.Property(r => r.Name).IsRequired().HasMaxLength(50);
+                entity.HasKey(r => r.RoleID);
+                entity.Property(r => r.RoleName).IsRequired().HasMaxLength(50);
             });
 
             // UserRoles Entity Configuration
@@ -205,10 +208,33 @@ namespace api.Data
                       .HasForeignKey(cm => cm.ReceiverID);
             });
 
+            builder.Entity<Dispute>()
+            .HasOne(d => d.Client)
+            .WithMany(u => u.DisputesAsClient)
+            .HasForeignKey(d => d.ClientID)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Dispute>()
+                .HasOne(d => d.Vendor)
+                .WithMany(u => u.DisputesAsVendor)
+                .HasForeignKey(d => d.VendorID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Dispute>()
+                .HasOne(d => d.ServiceRequest)
+                .WithMany(sr => sr.Disputes)
+                .HasForeignKey(d => d.RequestID);
+
+            builder.Entity<Withdrawal>()
+                .HasOne(w => w.Vendor)
+                .WithMany(u => u.Withdrawals)
+                .HasForeignKey(w => w.VendorID);
+
+
             // Configuration for keyless entities (View Models)
             builder.Entity<ChatInteractionViewModel>(entity =>
             {
-                entity.HasNoKey(); // Configure as keyless entity
+                entity.HasNoKey(); 
             });
 
             builder.Entity<ClientActivityReportViewModel>(entity =>

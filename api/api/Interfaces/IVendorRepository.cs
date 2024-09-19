@@ -1,4 +1,5 @@
-﻿using api.Models;
+﻿using api.Dtos.Service;
+using api.Models;
 
 namespace api.Interfaces
 {
@@ -8,8 +9,8 @@ namespace api.Interfaces
         //Task<User> AuthenticateVendor(string email, string password);
 
         Task<IEnumerable<Service>> GetVendorServices(int vendorId);
-        Task<Service> AddService(int vendorId, Service service);
-        Task<Service> UpdateService(int vendorId, int serviceId, Service service);
+        Task<ServiceCreateDto> AddService(int vendorId, ServiceCreateDto serviceDto);
+        Task<ServiceUpdateDto> UpdateService(int vendorId, int serviceId, ServiceUpdateDto serviceDto);
         Task<bool> RemoveService(int vendorId, int serviceId);
 
         Task<IEnumerable<ServiceRequest>> GetServiceRequests(int vendorId);
@@ -24,5 +25,10 @@ namespace api.Interfaces
 
         Task<User> UpdateVendorProfile(int vendorId, User vendor);
         Task<IEnumerable<Notification>> GetVendorNotifications(int vendorId);
+
+        Task<IEnumerable<Dispute>> GetVendorDisputes(int vendorId);
+        Task<Withdrawal> RequestWithdrawal(int vendorId, Withdrawal withdrawal);
+        Task<IEnumerable<Withdrawal>> GetWithdrawals(int vendorId);
+        Task<bool> ResolveDispute(int vendorId, int disputeId, string resolution);
     }
 }

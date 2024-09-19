@@ -3,8 +3,13 @@ using api.Dtos.User;
 using api.Interfaces;
 using api.Models;
 using AutoMapper;
+using Dapper;
+using DotNetEnv;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -64,52 +69,115 @@ namespace api.Repository
         // Method for logging in and generating JWT
         public async Task<string> Login(LoginDTO userLoginDto)
         {
-            // Find the user by email
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == userLoginDto.Email);
+            var connectionString = Env.GetString("DB_CONNECTION_STRING");
 
-            if (user == null || !BCrypt.Net.BCrypt.Verify(userLoginDto.Password, user.Password))
+            if (string.IsNullOrEmpty(connectionString))
             {
-                throw new Exception("Invalid email or password.");
+                throw new Exception("Database connection string is not configured.");
             }
 
-            // Update last login time
-            user.LastLogin = DateTime.Now;
-            await _context.SaveChangesAsync();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                // Fetch user details
+                var user = await connection.QuerySingleOrDefaultAsync<User>(
+                    "dbo.LoginUser",
+                    new { Email = userLoginDto.Email },
+                    commandType: CommandType.StoredProcedure
+                );
 
-            // Generate JWT Token
-            return await GenerateJwtToken(user);
+                if (user == null)
+                {
+                    throw new Exception("Invalid email or password.");
+                }
+
+                // Verify the hashed password
+                if (!BCrypt.Net.BCrypt.Verify(userLoginDto.Password, user.Password))
+                {
+                    throw new Exception("Invalid email or password.");
+                }
+
+                // Generate JWT Token
+                return GenerateJwtToken(user);
+            }
         }
 
-        private async Task<string> GenerateJwtToken(User user)
+        //public async Task<UserDto> Login(LoginDTO userLoginDto)
+        //{
+        //    var connectionString = Env.GetString("DB_CONNECTION_STRING");
+
+        //    if (string.IsNullOrEmpty(connectionString))
+        //    {
+        //        throw new Exception("Database connection string is not configured.");
+        //    }
+
+        //    using (var connection = new SqlConnection(connectionString))
+        //    {
+        //        // Fetch user details
+        //        var user = await connection.QuerySingleOrDefaultAsync<UserDto>(
+        //            "dbo.LoginUser",
+        //            new { Email = userLoginDto.Email },
+        //            commandType: CommandType.StoredProcedure
+        //        );
+
+        //        if (user == null)
+        //        {
+        //            throw new Exception("Invalid email or password.");
+        //        }
+
+        //        // Verify the hashed password
+        //        if (!BCrypt.Net.BCrypt.Verify(userLoginDto.Password, user.Password))
+        //        {
+        //            throw new Exception("Invalid email or password.");
+        //        }
+
+        //        // Return user information
+        //        return user;
+        //    }
+        //}
+
+
+        private string GenerateJwtToken(User user)
         {
-            // Fetch the role name from the database using RoleID
-            var role = await _context.Roles.FirstOrDefaultAsync(r => r.Id == user.RoleID);
-            if (role == null)
+            if (user == null)
             {
-                throw new Exception("Role not found.");
+                throw new ArgumentNullException(nameof(user), "User cannot be null.");
+            }
+
+            var key = Env.GetString("JWT_KEY");
+            var issuer = Env.GetString("JWT_ISSUER");
+            var audience = Env.GetString("JWT_AUDIENCE");
+
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(issuer) || string.IsNullOrEmpty(audience))
+            {
+                throw new Exception("JWT configuration values are not set.");
             }
 
             var claims = new[]
             {
         new Claim(JwtRegisteredClaimNames.Sub, user.UserID.ToString()),
         new Claim(JwtRegisteredClaimNames.Email, user.Email),
-        new Claim(ClaimTypes.Role, role.Name),  // Fetch the role name using RoleID
+        new Claim(ClaimTypes.Role, user.RoleName ?? string.Empty),
         new Claim("Latitude", user.Latitude?.ToString() ?? string.Empty),
         new Claim("Longitude", user.Longitude?.ToString() ?? string.Empty)
     };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var symmetricKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+            var creds = new SigningCredentials(symmetricKey, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: _config["Jwt:Issuer"],
-                audience: _config["Jwt:Audience"],
+                issuer: issuer,
+                audience: audience,
                 claims: claims,
                 expires: DateTime.Now.AddHours(12),
-                signingCredentials: creds);
+                signingCredentials: creds
+            );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+
+
+
 
 
         public async Task<IEnumerable<User>> GetAllUsersAsync()
