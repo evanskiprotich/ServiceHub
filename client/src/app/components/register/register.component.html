@@ -1,0 +1,77 @@
+<!-- register.component.html -->
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card mt-5">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">
+            <i class="bi bi-person-plus me-2"></i>Register
+          </h2>
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="name" class="form-label">
+                <i class="bi bi-person me-2"></i>Name
+              </label>
+              <input type="text" class="form-control" id="name" formControlName="name" required>
+              <div *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)" class="text-danger">
+                <small *ngIf="registerForm.get('name')?.errors?.['required']">Name is required</small>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">
+                <i class="bi bi-envelope me-2"></i>Email address
+              </label>
+              <input type="email" class="form-control" id="email" formControlName="email" required>
+              <div *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)" class="text-danger">
+                <small *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</small>
+                <small *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email</small>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">
+                <i class="bi bi-lock me-2"></i>Password
+              </label>
+              <input type="password" class="form-control" id="password" formControlName="password" required>
+              <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)" class="text-danger">
+                <small *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</small>
+                <small *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</small>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">
+                <i class="bi bi-lock-fill me-2"></i>Confirm Password
+              </label>
+              <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" required>
+              <div *ngIf="registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)" class="text-danger">
+                <small *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required</small>
+              </div>
+              <div *ngIf="registerForm.hasError('mismatch')" class="text-danger">
+                <small>Passwords do not match</small>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                <i class="bi bi-person-badge me-2"></i>User Type
+              </label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="userType" id="clientType" value="client">
+                <label class="form-check-label" for="clientType">
+                  Client
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="userType" id="vendorType" value="vendor">
+                <label class="form-check-label" for="vendorType">
+                  Vendor
+                </label>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid">
+              <i class="bi bi-person-plus me-2"></i>Register
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

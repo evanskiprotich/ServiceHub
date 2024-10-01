@@ -1,0 +1,73 @@
+<!-- landing-page.component.html -->
+<div class="landing-page">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="/assets/th.jpeg" alt="ServiceHub Logo" height="30" class="d-inline-block align-top">
+        ServiceHub
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/register">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="header text-center text-white d-flex align-items-center">
+    <div class="container">
+      <h1 class="display-4 mb-4">Welcome to ServiceHub</h1>
+      <p class="lead mb-5">Your one-stop solution for all your service needs where you are located.</p>
+      <button routerLink="/services" class="btn btn-primary btn-lg">Explore Nearby Services</button>
+    </div>
+  </header>
+
+  <section class="services py-5">
+    <div class="container">
+      <h2 class="text-center mb-5">Our Services</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <img src="/assets/th.jpeg" alt="Service 1" class="card-img-top">
+            <div class="card-body">
+              <h3 class="card-title">Service 1</h3>
+              <p class="card-text">Description of Service 1. This service provides excellent solutions for your needs.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <img src="/assets/th.jpeg" alt="Service 2" class="card-img-top">
+            <div class="card-body">
+              <h3 class="card-title">Service 2</h3>
+              <p class="card-text">Description of Service 2. Our experts are ready to assist you with this service.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <img src="/assets/th.jpeg" alt="Service 3" class="card-img-top">
+            <div class="card-body">
+              <h3 class="card-title">Service 3</h3>
+              <p class="card-text">Description of Service 3. Experience top-notch quality with this service offering.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer bg-light py-4 mt-5">
+    <div class="container text-center">
+      <p class="mb-0">&copy; 2024 ServiceHub. All Rights Reserved.</p>
+    </div>
+  </footer>
+</div>

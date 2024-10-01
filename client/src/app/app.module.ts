@@ -3,30 +3,31 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LandingPageComponentComponent } from './LandingPageComponent/LandingPageComponent.component';
-import { RegisterComponentComponent } from './RegisterComponent/RegisterComponent.component';
-import { LoginComponentComponent } from './LoginComponent/LoginComponent.component';
-import { ClientDashboardComponentComponent } from './ClientDashboardComponent/ClientDashboardComponent.component';
-import { VendorDashboardComponentComponent } from './VendorDashboardComponent/VendorDashboardComponent.component';
-import { AdminDashboardComponentComponent } from './AdminDashboardComponent/AdminDashboardComponent.component';
-import { ServiceDetailsComponentComponent } from './ServiceDetailsComponent/ServiceDetailsComponent.component';
-import { PaymentComponentComponent } from './PaymentComponent/PaymentComponent.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { ClientDashboardComponent } from './components/client-dashboard/client-dashboard.component';
+import { VendorDashboardComponent } from './components/vendor-dashboard/vendor-dashboard.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
-  declarations: [								
+  declarations: [
     AppComponent,
-      LandingPageComponentComponent,
-      RegisterComponentComponent,
-      LoginComponentComponent,
-      ClientDashboardComponentComponent,
-      VendorDashboardComponentComponent,
-      AdminDashboardComponentComponent,
-      ServiceDetailsComponentComponent,
-      PaymentComponentComponent
+    LandingPageComponent,
+    ClientDashboardComponent,
+    VendorDashboardComponent,
+    AdminDashboardComponent,
+    LoginComponent,
+    RegisterComponent,
+    NavbarComponent,
    ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
