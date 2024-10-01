@@ -1,6 +1,12 @@
 ﻿using api.Dtos.Service;
+using api.Dtos.Payment;
+using api.Dtos.Notification;
 using api.Interfaces;
-using api.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using api.Dtos.ChatMessage;
+using api.Dtos.ServiceRequest;
+using api.Dtos.User;
 
 namespace api.Services
 {
@@ -13,17 +19,17 @@ namespace api.Services
             _vendorRepository = vendorRepository;
         }
 
-        //public Task<User> RegisterVendor(User vendor)
-        //{
-        //    return _vendorRepository.CreateVendor(vendor);
-        //}
+        // public Task<UserDto> RegisterVendor(UserDto vendorDto)
+        // {
+        //     return _vendorRepository.CreateVendor(vendorDto);
+        // }
 
-        //public Task<User> LoginVendor(string email, string password)
-        //{
-        //    return _vendorRepository.AuthenticateVendor(email, password);
-        //}
+        // public Task<UserDto> LoginVendor(string email, string password)
+        // {
+        //     return _vendorRepository.AuthenticateVendor(email, password);
+        // }
 
-        public Task<IEnumerable<Service>> GetVendorServices(int vendorId)
+        public Task<IEnumerable<ServiceDto>> GetVendorServices(int vendorId)
         {
             return _vendorRepository.GetVendorServices(vendorId);
         }
@@ -43,7 +49,7 @@ namespace api.Services
             return _vendorRepository.RemoveService(vendorId, serviceId);
         }
 
-        public Task<IEnumerable<ServiceRequest>> GetServiceRequests(int vendorId)
+        public Task<IEnumerable<ServiceRequestDto>> GetServiceRequests(int vendorId)
         {
             return _vendorRepository.GetServiceRequests(vendorId);
         }
@@ -58,32 +64,32 @@ namespace api.Services
             return _vendorRepository.RejectServiceRequest(vendorId, requestId);
         }
 
-        public Task<Payment> GetPaymentDetails(int vendorId, int requestId)
+        public Task<PaymentDto> GetPaymentDetails(int vendorId, int requestId)
         {
             return _vendorRepository.GetPaymentDetails(vendorId, requestId);
         }
 
-        public Task<IEnumerable<Payment>> GetVendorPayments(int vendorId)
+        public Task<IEnumerable<PaymentDto>> GetVendorPayments(int vendorId)
         {
             return _vendorRepository.GetVendorPayments(vendorId);
         }
 
-        public Task<ChatMessage> SendMessage(int vendorId, int clientId, ChatMessage message)
+        public Task<ChatMessageDto> SendMessage(int vendorId, int clientId, ChatMessageDto messageDto)
         {
-            return _vendorRepository.SendMessage(vendorId, clientId, message);
+            return _vendorRepository.SendMessage(vendorId, clientId, messageDto);
         }
 
-        public Task<IEnumerable<ChatMessage>> GetChatMessages(int vendorId, int clientId)
+        public Task<IEnumerable<ChatMessageDto>> GetChatMessages(int vendorId, int clientId)
         {
             return _vendorRepository.GetChatMessages(vendorId, clientId);
         }
 
-        public Task<User> UpdateVendorProfile(int vendorId, User vendor)
+        public Task<UserDto> UpdateVendorProfile(int vendorId, UserDto vendorDto)
         {
-            return _vendorRepository.UpdateVendorProfile(vendorId, vendor);
+            return _vendorRepository.UpdateVendorProfile(vendorId, vendorDto);
         }
 
-        public Task<IEnumerable<Notification>> GetVendorNotifications(int vendorId)
+        public Task<IEnumerable<NotificationDto>> GetVendorNotifications(int vendorId)
         {
             return _vendorRepository.GetVendorNotifications(vendorId);
         }

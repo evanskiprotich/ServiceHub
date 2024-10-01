@@ -11,6 +11,7 @@ namespace api.Models
         public string ServiceDescription { get; set; }
         public decimal Cost { get; set; }
         public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; } 
         public string IsAvailable { get; set; }
 
         // Navigation Properties

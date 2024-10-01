@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{07BA8D94-4629-4844-B946-75751ED4F4AB}|api\\api.csproj|c:\\users\\hp\\documents\\servicelinker\\api\\api\\controllers\\vendorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{07BA8D94-4629-4844-B946-75751ED4F4AB}|api\\api.csproj|solutionrelative:api\\controllers\\vendorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07BA8D94-4629-4844-B946-75751ED4F4AB}|api\\api.csproj|c:\\users\\hp\\documents\\servicelinker\\api\\api\\controllers\\clientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{07BA8D94-4629-4844-B946-75751ED4F4AB}|api\\api.csproj|solutionrelative:api\\controllers\\clientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{07BA8D94-4629-4844-B946-75751ED4F4AB}|api\\api.csproj|c:\\users\\hp\\documents\\servicelinker\\api\\api\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{07BA8D94-4629-4844-B946-75751ED4F4AB}|api\\api.csproj|solutionrelative:api\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -71,14 +79,6 @@
       "RelativeMoniker": "D:0:0:{07BA8D94-4629-4844-B946-75751ED4F4AB}|api\\api.csproj|solutionrelative:api\\repository\\clientrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{07BA8D94-4629-4844-B946-75751ED4F4AB}|api\\api.csproj|c:\\users\\hp\\documents\\servicelinker\\api\\api\\controllers\\clientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{07BA8D94-4629-4844-B946-75751ED4F4AB}|api\\api.csproj|solutionrelative:api\\controllers\\clientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{07BA8D94-4629-4844-B946-75751ED4F4AB}|api\\api.csproj|c:\\users\\hp\\documents\\servicelinker\\api\\api\\controllers\\vendorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{07BA8D94-4629-4844-B946-75751ED4F4AB}|api\\api.csproj|solutionrelative:api\\controllers\\vendorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{07BA8D94-4629-4844-B946-75751ED4F4AB}|api\\api.csproj|c:\\users\\hp\\documents\\servicelinker\\api\\api\\repository\\vendorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{07BA8D94-4629-4844-B946-75751ED4F4AB}|api\\api.csproj|solutionrelative:api\\repository\\vendorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -130,7 +130,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 171,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 26,
           "Children": [
             {
               "$type": "Bookmark",
@@ -142,7 +142,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "IAdminRepository.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Interfaces\\IAdminRepository.cs",
               "RelativeDocumentMoniker": "api\\Interfaces\\IAdminRepository.cs",
@@ -150,12 +150,11 @@
               "RelativeToolTip": "api\\Interfaces\\IAdminRepository.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAA5wAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T09:02:32.38Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T09:02:32.38Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "PaymentCreateDto.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Dtos\\Payment\\PaymentCreateDto.cs",
               "RelativeDocumentMoniker": "api\\Dtos\\Payment\\PaymentCreateDto.cs",
@@ -163,12 +162,11 @@
               "RelativeToolTip": "api\\Dtos\\Payment\\PaymentCreateDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T09:02:13.201Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T09:02:13.201Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "PaymentDto.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Dtos\\Payment\\PaymentDto.cs",
               "RelativeDocumentMoniker": "api\\Dtos\\Payment\\PaymentDto.cs",
@@ -176,12 +174,11 @@
               "RelativeToolTip": "api\\Dtos\\Payment\\PaymentDto.cs",
               "ViewState": "AgIAAAIAAAAAAAAAAAA0wAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T09:02:05.935Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T09:02:05.935Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "Notification.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Models\\Notification.cs",
               "RelativeDocumentMoniker": "api\\Models\\Notification.cs",
@@ -189,12 +186,11 @@
               "RelativeToolTip": "api\\Models\\Notification.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAkwAgAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T09:00:50.208Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T09:00:50.208Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "UserRoles.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Models\\UserRoles.cs",
               "RelativeDocumentMoniker": "api\\Models\\UserRoles.cs",
@@ -202,12 +198,11 @@
               "RelativeToolTip": "api\\Models\\UserRoles.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T08:59:57.258Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T08:59:57.258Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "AdminService.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Services\\AdminService.cs",
               "RelativeDocumentMoniker": "api\\Services\\AdminService.cs",
@@ -215,38 +210,35 @@
               "RelativeToolTip": "api\\Services\\AdminService.cs",
               "ViewState": "AgIAACUAAAAAAAAAAAAkwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T08:26:15.611Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T08:26:15.611Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "AdminController.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Controllers\\AdminController.cs",
               "RelativeDocumentMoniker": "api\\Controllers\\AdminController.cs",
               "ToolTip": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Controllers\\AdminController.cs",
               "RelativeToolTip": "api\\Controllers\\AdminController.cs",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAAAFAAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAACIAAAAAAAAAAAAuwAkAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T07:57:09.598Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T07:57:09.598Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 1,
               "Title": "ClientController.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Controllers\\ClientController.cs",
               "RelativeDocumentMoniker": "api\\Controllers\\ClientController.cs",
               "ToolTip": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Controllers\\ClientController.cs",
               "RelativeToolTip": "api\\Controllers\\ClientController.cs",
-              "ViewState": "AgIAAFIAAAAAAAAAAAAcwGgAAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAGgAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T07:20:47.009Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T07:20:47.009Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "AdminRepository.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Repository\\AdminRepository.cs",
               "RelativeDocumentMoniker": "api\\Repository\\AdminRepository.cs",
@@ -254,8 +246,7 @@
               "RelativeToolTip": "api\\Repository\\AdminRepository.cs",
               "ViewState": "AgIAAEIAAAAAAAAAAAAAAEEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T07:09:26.132Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T07:09:26.132Z"
             },
             {
               "$type": "Document",
@@ -267,12 +258,11 @@
               "RelativeToolTip": "api\\Interfaces\\IClientRepository.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAuwB0AAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T07:07:10.488Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T07:07:10.488Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "ClientRepository.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Repository\\ClientRepository.cs",
               "RelativeDocumentMoniker": "api\\Repository\\ClientRepository.cs",
@@ -280,12 +270,11 @@
               "RelativeToolTip": "api\\Repository\\ClientRepository.cs",
               "ViewState": "AgIAABUAAAAAAAAAAAAkwJ8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T07:04:02.798Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T07:04:02.798Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Models\\User.cs",
               "RelativeDocumentMoniker": "api\\Models\\User.cs",
@@ -293,12 +282,11 @@
               "RelativeToolTip": "api\\Models\\User.cs",
               "ViewState": "AgIAACoAAAAAAAAAAAAuwCAAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T07:03:20.874Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T07:03:20.874Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "DataContext.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Data\\DataContext.cs",
               "RelativeDocumentMoniker": "api\\Data\\DataContext.cs",
@@ -306,12 +294,11 @@
               "RelativeToolTip": "api\\Data\\DataContext.cs",
               "ViewState": "AgIAAEcAAAAAAAAAAAAUwOwAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T07:01:36.343Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T07:01:36.343Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 15,
               "Title": "Withdrawal.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Models\\Withdrawal.cs",
               "RelativeDocumentMoniker": "api\\Models\\Withdrawal.cs",
@@ -319,12 +306,11 @@
               "RelativeToolTip": "api\\Models\\Withdrawal.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAuwAoAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T07:00:49.572Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T07:00:49.572Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "Dispute.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Models\\Dispute.cs",
               "RelativeDocumentMoniker": "api\\Models\\Dispute.cs",
@@ -332,12 +318,11 @@
               "RelativeToolTip": "api\\Models\\Dispute.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAYwAUAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T07:00:14.07Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T07:00:14.07Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "ServiceRequest.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Models\\ServiceRequest.cs",
               "RelativeDocumentMoniker": "api\\Models\\ServiceRequest.cs",
@@ -345,12 +330,11 @@
               "RelativeToolTip": "api\\Models\\ServiceRequest.cs",
               "ViewState": "AgIAAAQAAAAAAAAAAAAkwBQAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T06:12:34.749Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T06:12:34.749Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "Payment.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Models\\Payment.cs",
               "RelativeDocumentMoniker": "api\\Models\\Payment.cs",
@@ -358,12 +342,11 @@
               "RelativeToolTip": "api\\Models\\Payment.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T18:14:24.156Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-18T18:14:24.156Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "Review.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Models\\Review.cs",
               "RelativeDocumentMoniker": "api\\Models\\Review.cs",
@@ -371,8 +354,7 @@
               "RelativeToolTip": "api\\Models\\Review.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAUwAcAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T18:11:45.451Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-18T18:11:45.451Z"
             },
             {
               "$type": "Document",
@@ -384,8 +366,7 @@
               "RelativeToolTip": "api\\Models\\Service.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAA5wA0AAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T12:50:04.728Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-18T12:50:04.728Z"
             },
             {
               "$type": "Document",
@@ -397,8 +378,7 @@
               "RelativeToolTip": "api\\Services\\VendorService.cs",
               "ViewState": "AgIAAFAAAAAAAAAAAAAAwFsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T12:22:11.303Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-18T12:22:11.303Z"
             },
             {
               "$type": "Document",
@@ -410,12 +390,11 @@
               "RelativeToolTip": "api\\Dtos\\Service\\ServiceCreateDto.cs",
               "ViewState": "AgIAAAQAAAAAAAAAAAA5wAoAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T12:08:39.956Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-18T12:08:39.956Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "ChatMessage.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Models\\ChatMessage.cs",
               "RelativeDocumentMoniker": "api\\Models\\ChatMessage.cs",
@@ -423,8 +402,7 @@
               "RelativeToolTip": "api\\Models\\ChatMessage.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAAAYwA4AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T12:06:00.363Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-18T12:06:00.363Z"
             },
             {
               "$type": "Document",
@@ -436,8 +414,7 @@
               "RelativeToolTip": "api\\Repository\\VendorRepository.cs",
               "ViewState": "AgIAAMMAAAAAAAAAAAAAwM0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T12:01:45.357Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-18T12:01:45.357Z"
             },
             {
               "$type": "Document",
@@ -449,18 +426,17 @@
               "RelativeToolTip": "api\\Interfaces\\IVendorRepository.cs",
               "ViewState": "AgIAABwAAAAAAAAAAAA2wB8AAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T12:01:33.945Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-18T12:01:33.945Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 0,
               "Title": "VendorController.cs",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Controllers\\VendorController.cs",
               "RelativeDocumentMoniker": "api\\Controllers\\VendorController.cs",
               "ToolTip": "C:\\Users\\HP\\Documents\\ServiceLinker\\api\\api\\Controllers\\VendorController.cs",
               "RelativeToolTip": "api\\Controllers\\VendorController.cs",
-              "ViewState": "AgIAAHgAAAAAAAAAAAAxwIIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAkAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-18T12:00:48.417Z",
               "EditorCaption": ""
@@ -475,8 +451,7 @@
               "RelativeToolTip": "api\\Controllers\\AuthenticationController.cs",
               "ViewState": "AgIAACIAAAAAAAAAAAAgwCwAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T11:21:15.296Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-18T11:21:15.296Z"
             },
             {
               "$type": "Document",
@@ -488,8 +463,7 @@
               "RelativeToolTip": "api\\Interfaces\\IUserRepository.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAA5wA8AAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T11:20:46.782Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-18T11:20:46.782Z"
             },
             {
               "$type": "Document",
@@ -501,8 +475,7 @@
               "RelativeToolTip": "api\\Program.cs",
               "ViewState": "AgIAAF8AAAAAAAAAAAAkwGsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T09:55:05.494Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-18T09:55:05.494Z"
             },
             {
               "$type": "Document",
@@ -514,8 +487,7 @@
               "RelativeToolTip": "api\\Dtos\\User\\UserDto.cs",
               "ViewState": "AgIAAAQAAAAAAAAAAAA5wAcAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T09:53:41.397Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-18T09:53:41.397Z"
             },
             {
               "$type": "Document",
@@ -527,8 +499,7 @@
               "RelativeToolTip": "api\\Repository\\UserRepository.cs",
               "ViewState": "AgIAAEQAAAAAAAAAAAAAAEcAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-17T12:38:38.282Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-17T12:38:38.282Z"
             }
           ]
         }

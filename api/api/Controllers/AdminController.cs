@@ -1,12 +1,14 @@
 ﻿using api.Models;
 using api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
+    [Authorize(Roles ="Admin")]
     public class AdminController : ControllerBase
     {
         private readonly AdminService _adminService;

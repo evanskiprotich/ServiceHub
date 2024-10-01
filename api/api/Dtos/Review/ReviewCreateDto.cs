@@ -4,7 +4,7 @@
     {
         public int ClientID { get; set; }
         public int ServiceID { get; set; }
-        public int Rating { get; set; } // Between 1 and 5
+        public int Rating { get; set; } // 1-5 stars
         public string Comment { get; set; }
     }
 }

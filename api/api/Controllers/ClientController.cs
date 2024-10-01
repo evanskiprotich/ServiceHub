@@ -1,4 +1,10 @@
-﻿using api.Models;
+﻿using api.Dtos;
+using api.Dtos.ChatMessage;
+using api.Dtos.Notification;
+using api.Dtos.Payment;
+using api.Dtos.Review;
+using api.Dtos.ServiceRequest;
+using api.Dtos.User;
 using api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -8,7 +14,7 @@ namespace api.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    [Authorize(Roles="Client")]
+    [Authorize(Roles = "Client")]
     public class ClientController : ControllerBase
     {
         private readonly ClientService _clientService;
@@ -19,9 +25,9 @@ namespace api.Controllers
         }
 
         //[HttpPost("register")]
-        //public async Task<IActionResult> RegisterClient([FromBody] User user)
+        //public async Task<IActionResult> RegisterClient([FromBody] UserCreateDto userDto)
         //{
-        //    var newUser = await _clientService.RegisterClient(user);
+        //    var newUser = await _clientService.RegisterClient(userDto);
         //    return Ok(newUser);
         //}
 
@@ -36,16 +42,16 @@ namespace api.Controllers
         //}
 
         [HttpPost("request-service")]
-        public async Task<IActionResult> RequestService(int clientId, int serviceId, [FromBody] ServiceRequest request)
+        public async Task<IActionResult> RequestService(int clientId, int serviceId, [FromBody] ServiceRequestCreateDto requestDto)
         {
-            var newRequest = await _clientService.RequestService(clientId, serviceId, request);
+            var newRequest = await _clientService.RequestService(clientId, serviceId, requestDto);
             return Ok(newRequest);
         }
 
         [HttpPost("make-payment")]
-        public async Task<IActionResult> MakePayment(int clientId, [FromBody] Payment payment)
+        public async Task<IActionResult> MakePayment(int clientId, [FromBody] PaymentCreateDto paymentDto)
         {
-            var newPayment = await _clientService.MakePayment(clientId, payment);
+            var newPayment = await _clientService.MakePayment(clientId, paymentDto);
             return Ok(newPayment);
         }
 
@@ -71,16 +77,16 @@ namespace api.Controllers
         }
 
         [HttpPost("leave-review/{serviceId}")]
-        public async Task<IActionResult> LeaveReview(int clientId, int serviceId, [FromBody] Review review)
+        public async Task<IActionResult> LeaveReview(int clientId, int serviceId, [FromBody] ReviewCreateDto reviewDto)
         {
-            var newReview = await _clientService.LeaveReview(clientId, serviceId, review);
+            var newReview = await _clientService.LeaveReview(clientId, serviceId, reviewDto);
             return Ok(newReview);
         }
 
         [HttpPost("send-message/{vendorId}")]
-        public async Task<IActionResult> SendMessage(int clientId, int vendorId, [FromBody] ChatMessage message)
+        public async Task<IActionResult> SendMessage(int clientId, int vendorId, [FromBody] ChatMessageCreateDto messageDto)
         {
-            var newMessage = await _clientService.SendMessage(clientId, vendorId, message);
+            var newMessage = await _clientService.SendMessage(clientId, vendorId, messageDto);
             return Ok(newMessage);
         }
 
@@ -92,9 +98,9 @@ namespace api.Controllers
         }
 
         [HttpPost("update-profile")]
-        public async Task<IActionResult> UpdateProfile(int clientId, [FromBody] User user)
+        public async Task<IActionResult> UpdateProfile(int clientId, [FromBody] UserUpdateDto userUpdateDto)
         {
-            var updatedUser = await _clientService.UpdateClientProfile(clientId, user);
+            var updatedUser = await _clientService.UpdateClientProfile(clientId, userUpdateDto);
             return Ok(updatedUser);
         }
 
@@ -103,6 +109,15 @@ namespace api.Controllers
         {
             var notifications = await _clientService.GetClientNotifications(clientId);
             return Ok(notifications);
+        }
+        
+        // GET: api/service/nearby
+        [HttpGet("nearby")]
+        [AllowAnonymous] // Allow users without authentication
+        public async Task<IActionResult> GetNearbyServices(double latitude, double longitude)
+        {
+            var services = await _clientService.GetNearbyServices(latitude, longitude);
+            return Ok(services);
         }
     }
 }

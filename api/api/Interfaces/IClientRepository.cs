@@ -1,32 +1,44 @@
-﻿using api.Models;
+﻿using api.Dtos;
+using api.Dtos.ChatMessage;
+using api.Dtos.Dispute;
+using api.Dtos.Notification;
+using api.Dtos.Payment;
+using api.Dtos.Review;
+using api.Dtos.Service;
+using api.Dtos.ServiceRequest;
+using api.Dtos.User;
 
 namespace api.Interfaces
 {
     public interface IClientRepository
     {
-        //Task<User> CreateClient(User user);
-        //Task<User> AuthenticateClient(string email, string password);
+        Task<UserDto> UpdateClientProfile(int clientId, UserUpdateDto userUpdateDto);
 
-        //Task<IEnumerable<Service>> GetServicesByLocation(string location);
-        Task<IEnumerable<Service>> SearchServices(string query);
-        Task<ServiceRequest> RequestService(int clientId, int serviceId, ServiceRequest request);
+        Task<IEnumerable<ServiceDto>> SearchServices(string query);
 
-        Task<Payment> MakePayment(int clientId, Payment payment);
-        Task<IEnumerable<Payment>> GetPaymentReceipts(int clientId);
+        Task<ServiceRequestDto> RequestService(int clientId, int serviceId, ServiceRequestCreateDto requestDto);
 
-        Task<IEnumerable<ServiceRequest>> GetServiceHistory(int clientId);
+        Task<PaymentDto> MakePayment(int clientId, PaymentCreateDto paymentDto);
+
+        Task<IEnumerable<PaymentDto>> GetPaymentReceipts(int clientId);
+
+        Task<IEnumerable<ServiceRequestDto>> GetServiceHistory(int clientId);
+
         Task<string> GetServiceStatus(int clientId, int serviceRequestId);
+
         Task<bool> CancelServiceRequest(int clientId, int serviceRequestId);
 
-        Task<Review> LeaveReview(int clientId, int serviceId, Review review);
+        Task<ReviewDto> LeaveReview(int clientId, int serviceId, ReviewCreateDto reviewDto);
 
-        Task<ChatMessage> SendMessage(int clientId, int vendorId, ChatMessage message);
-        Task<IEnumerable<ChatMessage>> GetChatMessages(int clientId, int vendorId);
+        Task<ChatMessageDto> SendMessage(int clientId, int vendorId, ChatMessageCreateDto messageDto);
 
-        Task<User> UpdateClientProfile(int clientId, User user);
-        Task<IEnumerable<Notification>> GetClientNotifications(int clientId);
+        Task<IEnumerable<ChatMessageDto>> GetChatMessages(int clientId, int vendorId);
 
-        Task<Dispute> RaiseDispute(int clientId, int vendorId, int requestId, Dispute dispute);
-        Task<IEnumerable<Dispute>> GetClientDisputes(int clientId);
+        Task<IEnumerable<NotificationDto>> GetClientNotifications(int clientId);
+
+        Task<DisputeDto> RaiseDispute(int clientId, int vendorId, int requestId, DisputeCreateDto disputeDto);
+
+        Task<IEnumerable<DisputeDto>> GetClientDisputes(int clientId);
+        Task<List<ServiceDto>> GetNearbyServices(double userLat, double userLon);
     }
 }

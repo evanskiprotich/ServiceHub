@@ -1,5 +1,12 @@
 ﻿using api.Data;
+using api.Dtos.ChatMessage;
+using api.Dtos.Dispute;
+using api.Dtos.Notification;
+using api.Dtos.Payment;
 using api.Dtos.Service;
+using api.Dtos.ServiceRequest;
+using api.Dtos.User;
+using api.Dtos.Withdrawal;
 using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -15,23 +22,18 @@ namespace api.Repository
             _context = context;
         }
 
-        //public async Task<User> CreateVendor(User vendor)
-        //{
-        //    _context.Users.Add(vendor);
-        //    await _context.SaveChangesAsync();
-        //    return vendor;
-        //}
-
-        //public async Task<User> AuthenticateVendor(string email, string password)
-        //{
-        //    return await _context.Users
-        //        .FirstOrDefaultAsync(u => u.Email == email && u.Password == password && u.Role == "Vendor");
-        //}
-
-        public async Task<IEnumerable<Service>> GetVendorServices(int vendorId)
+        public async Task<IEnumerable<ServiceDto>> GetVendorServices(int vendorId)
         {
             return await _context.Services
                 .Where(s => s.VendorID == vendorId)
+                .Select(s => new ServiceDto
+                {
+                    ServiceID = s.ServiceID,
+                    ServiceName = s.ServiceName,
+                    ServiceDescription = s.ServiceDescription,
+                    Cost = s.Cost,
+                    IsAvailable = s.IsAvailable
+                })
                 .ToListAsync();
         }
 
@@ -50,8 +52,12 @@ namespace api.Repository
             _context.Services.Add(service);
             await _context.SaveChangesAsync();
 
+            // Populate ServiceID in the DTO
+            serviceDto.ServiceID = service.ServiceID; 
+            serviceDto.CreatedAt = service.CreatedAt; // Adding CreatedAt to the DTO if needed
             return serviceDto;
         }
+
 
         public async Task<ServiceUpdateDto> UpdateService(int vendorId, int serviceId, ServiceUpdateDto serviceDto)
         {
@@ -64,11 +70,14 @@ namespace api.Repository
             existingService.ServiceDescription = serviceDto.ServiceDescription;
             existingService.Cost = serviceDto.Cost;
             existingService.IsAvailable = serviceDto.IsAvailable;
+            existingService.UpdatedAt = DateTime.UtcNow; 
 
             await _context.SaveChangesAsync();
 
+            serviceDto.UpdatedAt = existingService.UpdatedAt; 
             return serviceDto;
         }
+
 
         public async Task<bool> RemoveService(int vendorId, int serviceId)
         {
@@ -82,10 +91,18 @@ namespace api.Repository
             return true;
         }
 
-        public async Task<IEnumerable<ServiceRequest>> GetServiceRequests(int vendorId)
+        public async Task<IEnumerable<ServiceRequestDto>> GetServiceRequests(int vendorId)
         {
             return await _context.ServiceRequests
                 .Where(sr => sr.Service.VendorID == vendorId)
+                .Select(sr => new ServiceRequestDto
+                {
+                    RequestID = sr.RequestID,
+                    ClientID = sr.ClientID,
+                    ServiceID = sr.ServiceID,
+                    Status = sr.Status,
+                    RequestDate = sr.RequestDate
+                })
                 .ToListAsync();
         }
 
@@ -113,79 +130,139 @@ namespace api.Repository
             return true;
         }
 
-        public async Task<Payment> GetPaymentDetails(int vendorId, int requestId)
+        public async Task<PaymentDto> GetPaymentDetails(int vendorId, int requestId)
         {
-            return await _context.Payments
+            var payment = await _context.Payments
                 .FirstOrDefaultAsync(p => p.RequestID == requestId && p.ServiceRequest.Service.VendorID == vendorId);
+
+            if (payment == null) return null;
+
+            return new PaymentDto
+            {
+                PaymentID = payment.PaymentID,
+                Amount = payment.Amount,
+                Status = payment.Status,
+                PaidAt = payment.PaidAt
+            };
         }
 
-        public async Task<IEnumerable<Payment>> GetVendorPayments(int vendorId)
+        public async Task<IEnumerable<PaymentDto>> GetVendorPayments(int vendorId)
         {
             return await _context.Payments
                 .Where(p => p.ServiceRequest.Service.VendorID == vendorId)
+                .Select(p => new PaymentDto
+                {
+                    PaymentID = p.PaymentID,
+                    Amount = p.Amount,
+                    Status = p.Status,
+                    PaidAt = p.PaidAt
+                })
                 .ToListAsync();
         }
 
-        public async Task<ChatMessage> SendMessage(int vendorId, int clientId, ChatMessage message)
+        public async Task<ChatMessageDto> SendMessage(int vendorId, int clientId, ChatMessageDto messageDto)
         {
-            message.SenderID = vendorId;
-            message.ReceiverID = clientId;
+            var message = new ChatMessage
+            {
+                SenderID = vendorId,
+                ReceiverID = clientId,
+                MessageText = messageDto.MessageText,
+                SentAt = DateTime.UtcNow
+            };
+
             _context.ChatMessages.Add(message);
             await _context.SaveChangesAsync();
-            return message;
+            messageDto.MessageID = message.MessageID; // Add MessageID to DTO if needed
+            return messageDto;
         }
 
-        public async Task<IEnumerable<ChatMessage>> GetChatMessages(int vendorId, int clientId)
+        public async Task<IEnumerable<ChatMessageDto>> GetChatMessages(int vendorId, int clientId)
         {
             return await _context.ChatMessages
                 .Where(cm => cm.SenderID == vendorId && cm.ReceiverID == clientId || cm.SenderID == clientId && cm.ReceiverID == vendorId)
                 .OrderBy(cm => cm.SentAt)
+                .Select(cm => new ChatMessageDto
+                {
+                    MessageID = cm.MessageID,
+                    SenderID = cm.SenderID,
+                    ReceiverID = cm.ReceiverID,
+                    MessageText = cm.MessageText,
+                    SentAt = cm.SentAt
+                })
                 .ToListAsync();
         }
 
-        public async Task<User> UpdateVendorProfile(int vendorId, User vendor)
+        public async Task<UserDto> UpdateVendorProfile(int vendorId, UserDto vendorDto)
         {
             var existingVendor = await _context.Users.FirstOrDefaultAsync(u => u.UserID == vendorId);
             if (existingVendor == null) return null;
 
-            existingVendor.UserName = vendor.UserName;
-            existingVendor.Email = vendor.Email;
-            existingVendor.Password = vendor.Password;
+            existingVendor.UserName = vendorDto.UserName;
+            existingVendor.Email = vendorDto.Email;
+            // Note: Do not set Password directly without hashing it
+            // existingVendor.Password = vendorDto.Password;
 
             await _context.SaveChangesAsync();
-            return existingVendor;
+            vendorDto.UserID = existingVendor.UserID; // Add UserID to DTO if needed
+            return vendorDto;
         }
 
-        public async Task<IEnumerable<Notification>> GetVendorNotifications(int vendorId)
+        public async Task<IEnumerable<NotificationDto>> GetVendorNotifications(int vendorId)
         {
             return await _context.Notifications
                 .Where(n => n.UserId == vendorId && !n.IsRead)
                 .OrderByDescending(n => n.SentAt)
+                .Select(n => new NotificationDto
+                {
+                    NotificationID = n.Id,
+                    Message = n.Message,
+                    IsRead = n.IsRead,
+                    SentAt = n.SentAt
+                })
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Dispute>> GetVendorDisputes(int vendorId)
+        public async Task<IEnumerable<DisputeDto>> GetVendorDisputes(int vendorId)
         {
             return await _context.Disputes
                 .Where(d => d.VendorID == vendorId)
+                .Select(d => new DisputeDto
+                {
+                    DisputeID = d.DisputeID,
+                    Issue = d.Issue,
+                    Status = d.Status,
+                    CreatedAt = d.CreatedAt
+                })
                 .ToListAsync();
         }
 
-        public async Task<Withdrawal> RequestWithdrawal(int vendorId, Withdrawal withdrawal)
+        public async Task<WithdrawalDto> RequestWithdrawal(int vendorId, WithdrawalDto withdrawalDto)
         {
-            withdrawal.VendorID = vendorId;
-            withdrawal.Status = "Pending";
-            withdrawal.WithdrawalDate = DateTime.UtcNow;
+            var withdrawal = new Withdrawal
+            {
+                VendorID = vendorId,
+                Amount = withdrawalDto.Amount,
+                Status = "Pending",
+                WithdrawalDate = DateTime.UtcNow
+            };
 
             _context.Withdrawals.Add(withdrawal);
             await _context.SaveChangesAsync();
-            return withdrawal;
+            withdrawalDto.WithdrawalID = withdrawal.WithdrawalID; // Add WithdrawalID to DTO if needed
+            return withdrawalDto;
         }
 
-        public async Task<IEnumerable<Withdrawal>> GetWithdrawals(int vendorId)
+        public async Task<IEnumerable<WithdrawalDto>> GetWithdrawals(int vendorId)
         {
             return await _context.Withdrawals
                 .Where(w => w.VendorID == vendorId)
+                .Select(w => new WithdrawalDto
+                {
+                    WithdrawalID = w.WithdrawalID,
+                    Amount = w.Amount,
+                    Status = w.Status,
+                    WithdrawalDate = w.WithdrawalDate
+                })
                 .ToListAsync();
         }
 
@@ -203,6 +280,5 @@ namespace api.Repository
             await _context.SaveChangesAsync();
             return true;
         }
-
     }
 }
