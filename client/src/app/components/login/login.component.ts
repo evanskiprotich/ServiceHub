@@ -1,61 +1,71 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { first } from 'rxjs/operators';
-import {AuthService} from "../../services/auth.service";
+import { Router } from '@angular/router';
+import { AuthService, User } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
-  submitted = false;
   error = '';
-  returnUrl: string;
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService
   ) {
-    // Redirect to appropriate dashboard if already logged in
-    if (this.authService.currentUserValue) {
-      this.router.navigate([`/${this.authService.currentUserValue.role}`]);
-    }
-
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
+  }
 
-    // Get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  ngOnInit() {
+    // If the user is already logged in, redirect to the appropriate dashboard
+    if (this.authService.isLoggedIn()) {
+      this.redirectToDashboard();
+    }
   }
 
   onSubmit() {
-    this.submitted = true;
-
     if (this.loginForm.invalid) {
       return;
     }
 
     this.loading = true;
-    this.authService.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value)
-      .pipe(first())
+    this.error = '';
+
+    this.authService.login(this.loginForm.value)
       .subscribe(
-        user => {
-          if ("role" in user) {
-            this.router.navigate([`/${user.role}`]);
-          }
+        response => {
+          this.loading = false;
+          this.redirectToDashboard();
         },
         error => {
-          this.error = error;
           this.loading = false;
+          this.error = 'Invalid email or password';
+          console.error('Login error:', error);
         }
       );
+  }
+
+  private redirectToDashboard() {
+    const user = this.authService.currentUserValue;
+    if (user) {
+      if (user.role === 'Admin') {
+        this.router.navigate(['/admin/dashboard']);
+      } else if (user.role === 'Vendor') {
+        this.router.navigate(['/vendor/dashboard']);
+      } else {
+        this.router.navigate(['/client/dashboard']);
+      }
+    } else {
+      // Handle the case where user is null (shouldn't happen, but TypeScript doesn't know that)
+      this.router.navigate(['/']);
+    }
   }
 }

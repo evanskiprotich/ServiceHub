@@ -1,4 +1,3 @@
-// src/app/navbar/navbar.component.ts
 import { Component, OnInit } from '@angular/core';
 import {AuthService, User} from "../../services/auth.service";
 

@@ -73,6 +73,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAutoMapper(typeof(Program));
 
 // Register repositories
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IVendorRepository, VendorRepository>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
@@ -93,6 +94,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials()
+    .WithOrigins("http://localhost:4200")
+    .SetIsOriginAllowed(origin => true)
+);
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

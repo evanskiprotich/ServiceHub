@@ -1,6 +1,5 @@
 ﻿using api.Dtos.User;
 using api.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers

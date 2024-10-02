@@ -18,7 +18,8 @@ namespace api.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRoles> UserRoles { get; set; }
         public DbSet<Dispute> Disputes { get; set; }
-    public DbSet<Withdrawal> Withdrawals { get; set; }
+        public DbSet<Withdrawal> Withdrawals { get; set; }
+        
         public virtual DbSet<ChatInteractionViewModel> ChatInteractionViews { get; set; }
         public virtual DbSet<ClientActivityReportViewModel> ClientActivityReports { get; set; }
         public virtual DbSet<ClientSatisfactionReportViewModel> ClientSatisfactionReports { get; set; }
