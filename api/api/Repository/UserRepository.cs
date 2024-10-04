@@ -101,41 +101,6 @@ namespace api.Repository
             }
         }
 
-        //public async Task<UserDto> Login(LoginDTO userLoginDto)
-        //{
-        //    var connectionString = Env.GetString("DB_CONNECTION_STRING");
-
-        //    if (string.IsNullOrEmpty(connectionString))
-        //    {
-        //        throw new Exception("Database connection string is not configured.");
-        //    }
-
-        //    using (var connection = new SqlConnection(connectionString))
-        //    {
-        //        // Fetch user details
-        //        var user = await connection.QuerySingleOrDefaultAsync<UserDto>(
-        //            "dbo.LoginUser",
-        //            new { Email = userLoginDto.Email },
-        //            commandType: CommandType.StoredProcedure
-        //        );
-
-        //        if (user == null)
-        //        {
-        //            throw new Exception("Invalid email or password.");
-        //        }
-
-        //        // Verify the hashed password
-        //        if (!BCrypt.Net.BCrypt.Verify(userLoginDto.Password, user.Password))
-        //        {
-        //            throw new Exception("Invalid email or password.");
-        //        }
-
-        //        // Return user information
-        //        return user;
-        //    }
-        //}
-
-
         private string GenerateJwtToken(User user)
         {
             if (user == null)
@@ -156,6 +121,7 @@ namespace api.Repository
             {
         new Claim(JwtRegisteredClaimNames.Sub, user.UserID.ToString()),
         new Claim(JwtRegisteredClaimNames.Email, user.Email),
+        new Claim(JwtRegisteredClaimNames.Name, user.UserName),
         new Claim(ClaimTypes.Role, user.RoleName ?? string.Empty),
         new Claim("Latitude", user.Latitude?.ToString() ?? string.Empty),
         new Claim("Longitude", user.Longitude?.ToString() ?? string.Empty)

@@ -1,1 +1,32 @@
-<p>payments works!</p>
+<!-- src/app/components/admin/payments/payments.component.html -->
+<div class="container mt-4">
+  <h2>Payments</h2>
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <table *ngIf="!loading && !error" class="table table-striped">
+    <thead>
+    <tr>
+      <th>Service</th>
+      <th>Client</th>
+      <th>Vendor</th>
+      <th>Date</th>
+      <th>Amount</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let payment of payments">
+      <td>{{ payment.serviceName }}</td>
+      <td>{{ payment.clientName }}</td>
+      <td>{{ payment.vendorName }}</td>
+      <td>{{ payment.date | date }}</td>
+      <td>{{ payment.amount | currency }}</td>
+      <td>{{ payment.status }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

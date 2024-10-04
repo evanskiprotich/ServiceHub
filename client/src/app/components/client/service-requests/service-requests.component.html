@@ -1,1 +1,32 @@
-<p>service-requests works!</p>
+<!-- src/app/components/client/service-requests/service-requests.component.html -->
+<div class="container mt-4">
+  <h2>Service Requests</h2>
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <table *ngIf="!loading && !error" class="table table-striped">
+    <thead>
+    <tr>
+      <th>Service</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let request of serviceRequests">
+      <td>{{ request.name }}</td>
+      <td>{{ request.date | date }}</td>
+      <td>{{ request.status }}</td>
+      <td>{{ request.price | currency }}</td>
+      <td>
+        <button class="btn btn-danger btn-sm" (click)="cancelRequest(request.id)">Cancel</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

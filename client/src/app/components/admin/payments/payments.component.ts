@@ -1,10 +1,35 @@
-import { Component } from '@angular/core';
+// src/app/components/admin/payments/payments.component.ts
+import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../../../services/admin.service';
 
 @Component({
-  selector: 'app-payments',
+  selector: 'app-admin-payments',
   templateUrl: './payments.component.html',
-  styleUrl: './payments.component.css'
+  styleUrls: ['./payments.component.scss']
 })
-export class PaymentsComponent {
+export class AdminPaymentsComponent implements OnInit {
+  payments: any[] = [];
+  loading = false;
+  error = '';
 
+  constructor(private adminService: AdminService) { }
+
+  ngOnInit(): void {
+    this.loadPayments();
+  }
+
+  loadPayments(): void {
+    this.loading = true;
+    this.adminService.getPayments().subscribe(
+      (data) => {
+        this.payments = data;
+        this.loading = false;
+      },
+      (error) => {
+        this.error = 'Failed to load payments';
+        this.loading = false;
+        console.error('Error loading payments:', error);
+      }
+    );
+  }
 }

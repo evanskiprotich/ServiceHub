@@ -57,11 +57,11 @@ export class LoginComponent implements OnInit {
     const user = this.authService.currentUserValue;
     if (user) {
       if (user.role === 'Admin') {
-        this.router.navigate(['/admin/dashboard']);
+        this.router.navigate(['/admin']);
       } else if (user.role === 'Vendor') {
-        this.router.navigate(['/vendor/dashboard']);
+        this.router.navigate(['/vendor']);
       } else {
-        this.router.navigate(['/client/dashboard']);
+        this.router.navigate(['/client']);
       }
     } else {
       // Handle the case where user is null (shouldn't happen, but TypeScript doesn't know that)

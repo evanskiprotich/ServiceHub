@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 export interface User {
   id: string;
   email: string;
-  username: string;
+  name: string;
   role: 'Admin' | 'Vendor' | 'Client';
 }
 
@@ -23,7 +23,6 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {
     const userJson = localStorage.getItem('currentUser');
-    // Only parse the JSON if it's not null
     this.currentUserSubject = new BehaviorSubject<User | null>(userJson ? JSON.parse(userJson) : null);
     this.currentUser = this.currentUserSubject.asObservable();
 
@@ -76,7 +75,7 @@ export class AuthService {
       const user: User = {
         id: payload.sub,
         email: payload.email,
-        username: payload.username,
+        name: payload.name,
         role: payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] as 'Admin' | 'Vendor' | 'Client'
       };
       return user;
@@ -85,4 +84,10 @@ export class AuthService {
       return null;
     }
   }
+
+  getUserRole(): 'Admin' | 'Vendor' | 'Client' | null {
+    const currentUser = this.currentUserValue;
+    return currentUser ? currentUser.role : null;
+  }
+
 }

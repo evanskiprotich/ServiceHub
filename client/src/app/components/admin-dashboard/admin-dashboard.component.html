@@ -93,10 +93,10 @@
           </thead>
           <tbody>
           <tr *ngFor="let user of users.slice(0, 5)">
-            <td>{{ user.id }}</td>
-            <td>{{ user.name }}</td>
+            <td>{{ user.userID }}</td>
+            <td>{{ user.userName }}</td>
             <td>{{ user.email }}</td>
-            <td>{{ user.role }}</td>
+            <td>{{ user.roleName }}</td>
             <td>
               <button class="btn btn-sm btn-danger" (click)="deleteUser(user.id)">Delete</button>
             </td>
@@ -119,10 +119,10 @@
           </thead>
           <tbody>
           <tr *ngFor="let service of services.slice(0, 5)">
-            <td>{{ service.id }}</td>
-            <td>{{ service.name }}</td>
-            <td>{{ service.description }}</td>
-            <td>{{ service.price | currency }}</td>
+            <td>{{ service.serviceID }}</td>
+            <td>{{ service.serviceName }}</td>
+            <td>{{ service.serviceDescription }}</td>
+            <td>{{ service.cost | currency }}</td>
             <td>
               <button class="btn btn-sm btn-danger" (click)="deleteService(service.id)">Delete</button>
             </td>

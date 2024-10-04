@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using api.Dtos.ChatMessage;
 using api.Dtos.User;
@@ -146,12 +147,24 @@ namespace api.Controllers
             return Ok(notifications);
         }
 
-        // Helper method to extract vendor ID from claims
+        // Helper method to extract vendor ID (user ID) from claims
         private int GetVendorIdFromClaims()
         {
-            // Assuming the vendor ID is stored in the claims. Modify according to your implementation.
-            var vendorIdClaim = User.FindFirst("VendorId")?.Value;
-            return int.Parse(vendorIdClaim);
+            var vendorIdClaim = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
+
+            if (string.IsNullOrEmpty(vendorIdClaim))
+            {
+                throw new Exception("Vendor ID claim not found.");
+            }
+
+            if (!int.TryParse(vendorIdClaim, out int vendorId))
+            {
+                throw new Exception("Invalid Vendor ID claim format.");
+            }
+
+            return vendorId;
         }
+
+
     }
 }

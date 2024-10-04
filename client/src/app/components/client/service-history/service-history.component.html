@@ -1,1 +1,28 @@
-<p>service-history works!</p>
+<!-- src/app/components/client/service-history/service-history.component.html -->
+<div class="container mt-4">
+  <h2>Service History</h2>
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <table *ngIf="!loading && !error" class="table table-striped">
+    <thead>
+    <tr>
+      <th>Service</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let service of serviceHistory">
+      <td>{{ service.name }}</td>
+      <td>{{ service.date | date }}</td>
+      <td>{{ service.status }}</td>
+      <td>{{ service.price | currency }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

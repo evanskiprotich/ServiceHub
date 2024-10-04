@@ -1,1 +1,24 @@
-<p>profile works!</p>
+<!-- src/app/components/client/profile/profile.component.html -->
+<div class="container mt-4">
+  <h2>Profile</h2>
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" class="form-control" id="name" formControlName="name" required>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" formControlName="email" required>
+    </div>
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone</label>
+      <input type="tel" class="form-control" id="phone" formControlName="phone" required>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="loading || profileForm.invalid">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Update Profile
+    </button>
+  </form>
+  <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
+  <div *ngIf="success" class="alert alert-success mt-3">{{ success }}</div>
+</div>
